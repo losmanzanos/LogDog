@@ -2369,3 +2369,30 @@ input, select, textarea {
 			}
 
 		}
+/* Mobile: disable fixed background-attachment for smooth scrolling */
+@media screen and (max-width: 767px) {
+	#intro,
+	#one,
+	#two {
+		background-attachment: scroll, scroll !important;
+		background-size: 256px 256px, cover !important;
+	}
+}
+
+/* Also target touch devices regardless of screen size (tablets etc.) */
+@media (hover: none) {
+	#intro,
+	#one,
+	#two {
+		background-attachment: scroll, scroll !important;
+		background-size: 256px 256px, cover !important;
+	}
+}
+
+/* Template touch detection — belt-and-suspenders for all touch devices */
+body.is-touch #intro,
+body.is-touch #one,
+body.is-touch #two {
+	background-attachment: scroll, scroll !important;
+	background-size: 256px 256px, cover !important;
+}

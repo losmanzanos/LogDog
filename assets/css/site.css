@@ -319,3 +319,17 @@ dialog.lbx::backdrop{background:rgba(20,18,14,.94)}
 .jprev span{display:block;margin-top:.4rem;font:500 .68rem/1.35 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2)}
 @media (max-width:1000px){.sheet .form{grid-column:1/-1!important}.sheet aside{grid-column:1/-1!important}}
 @media (hover:none){.jprev{display:none}}
+
+/* form confirmation */
+.form-note{margin:1rem 0 0;color:var(--crayon);font:500 .8rem/1.5 var(--mono);letter-spacing:.04em}
+.form button[disabled]{opacity:.55;cursor:wait}
+.sent{grid-column:1/8;align-self:start;position:relative;background:var(--paper);border:1px solid var(--ink);padding:clamp(1.8rem,4vw,3rem);outline:none;overflow:hidden}
+.sent h2{font-size:clamp(3rem,7vw,6rem);line-height:.88;margin:1.6rem 0 1.2rem}
+.sent p{max-width:30em;color:var(--ink-2)}
+.sent b{color:var(--ink);font-weight:500;overflow-wrap:anywhere}
+.sent-links{display:flex;flex-wrap:wrap;gap:.6rem 1.8rem;margin-top:1.8rem}
+.sent-dog{position:absolute;right:1.4rem;bottom:1.1rem;height:auto;width:5rem;opacity:.9}
+.stamp{display:inline-block;border:2px solid var(--crayon);color:var(--crayon);font:700 .8rem/1 var(--mono);letter-spacing:.24em;text-transform:uppercase;padding:.45rem .7rem .45rem .9rem;transform:rotate(-3deg);animation:stampin .38s cubic-bezier(.2,.9,.3,1.2) both}
+@keyframes stampin{from{opacity:0;transform:rotate(-9deg) scale(1.7)}to{opacity:1;transform:rotate(-3deg) scale(1)}}
+@media (max-width:1000px){.sent{grid-column:1/-1}}
+@media (prefers-reduced-motion:reduce){.stamp{animation:none}}

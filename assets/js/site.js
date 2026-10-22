@@ -117,3 +117,40 @@
     });
   }catch(e){}
 })();
+
+/* contact form: send in place and show an on-brand confirmation */
+(function(){
+  try{
+    var f=document.querySelector('form.form[data-ajax]');
+    if(!f||!window.fetch||!window.FormData) return;
+    var btn=f.querySelector('button[type=submit]'),label=btn.textContent;
+    var note=document.createElement('p');note.className='form-note';note.setAttribute('role','alert');
+    btn.parentNode.appendChild(note);
+    function el(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x)e.textContent=x;return e;}
+    function done(name,email){
+      var first=(name||'').trim().split(/\s+/)[0];
+      var box=el('div','sent');box.setAttribute('role','status');box.tabIndex=-1;
+      box.appendChild(el('span','stamp','Received'));
+      box.appendChild(el('h2','',first?('Got it, '+first+'.'):'Got it.'));
+      var p=el('p','','We will read this and write back to ');p.appendChild(el('b','',email));p.appendChild(document.createTextNode('. In the meantime, here is more of what we do.'));
+      box.appendChild(p);
+      var l=el('p','sent-links');
+      [['/work/','See the work'],['/process/','How a frame gets built'],['/journal/','Read the journal']].forEach(function(a){var k=el('a','tlink',a[1]);k.href=a[0];l.appendChild(k);});
+      box.appendChild(l);
+      var dog=new Image();dog.src='/assets/img/corgi-ink.png';dog.alt='';dog.width=80;dog.height=57;dog.className='sent-dog';box.appendChild(dog);
+      f.parentNode.replaceChild(box,f);
+      box.focus({preventScroll:true});
+      box.scrollIntoView({block:'center',behavior:window.matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth'});
+    }
+    f.addEventListener('submit',function(e){
+      if(f.querySelector('[name=_gotcha]').value){e.preventDefault();return;}
+      if(!f.checkValidity()) return;
+      e.preventDefault();
+      note.textContent='';btn.disabled=true;btn.textContent='Sending';
+      fetch(f.action,{method:'POST',body:new FormData(f),headers:{Accept:'application/json'}})
+        .then(function(r){if(!r.ok) throw new Error('bad');return r.json();})
+        .then(function(){done(f.elements.name.value,f.elements.email.value);})
+        .catch(function(){btn.disabled=false;btn.textContent=label;note.textContent='That did not go through. Give it another try in a moment, or message us on Facebook or Instagram.';});
+    });
+  }catch(err){}
+})();
